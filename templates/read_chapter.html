@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ chapter.title }} - Read Chapter</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; }
+        .image-container { margin: 20px 0; }
+        img { width: 70%; max-width: 800px; margin-bottom: 20px; }
+        a { display: inline-block; margin-top: 20px; text-decoration: none; color: #0066cc; }
+    </style>
+</head>
+<body>
+    <h1>{{ chapter.title }}</h1>
+    <h3>From: {{ chapter.manga.title }}</h3>
+    <div class="image-container">
+        {% for image in chapter.images | sort(attribute='page_number') %}
+            <img src="{{ url_for('uploaded_file', filename=image.filename) }}" alt="Page {{ image.page_number }}">
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('index') }}">← Back to Manga List</a>
+</body>
+</html>

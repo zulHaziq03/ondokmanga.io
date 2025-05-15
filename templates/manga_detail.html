@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ manga.title }} - Chapters</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body class="container mt-5">
+    <h1>{{ manga.title }}</h1>
+    <img src="{{ url_for('uploaded_file', filename=manga.cover_image) }}" class="img-fluid mb-3" style="max-height: 400px;"><br>
+
+    <h3>Chapters</h3>
+    <ul class="list-group">
+        {% for chapter in manga.chapters %}
+            <li class="list-group-item">
+                <a href="{{ url_for('read_chapter', chapter_id=chapter.id) }}">{{ chapter.title }}</a>
+            </li>
+        {% else %}
+            <li class="list-group-item">No chapters uploaded yet.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">← Back to Home</a>
+</body>
+</html>

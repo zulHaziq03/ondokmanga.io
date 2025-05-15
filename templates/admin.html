@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body class="container mt-4">
+    <h1>Admin Panel</h1>
+
+    <!-- Add New Manga -->
+   <!-- Add New Manga -->
+<h3 class="mt-5">Add New Manga</h3>
+<form method="POST" action="{{ url_for('add_manga') }}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="mangaTitle">Manga Title</label>
+        <input type="text" class="form-control" id="mangaTitle" name="title" required>
+    </div>
+    <div class="form-group">
+        <label for="mangaDescription">Description</label>
+        <textarea class="form-control" id="mangaDescription" name="description" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="coverUpload">Cover Image</label>
+        <input type="file" class="form-control-file" id="coverUpload" name="cover_image" accept="image/*" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Manga</button>
+</form>
+
+    <!-- Upload Chapter -->
+    <h3 class="mt-5">Upload Chapter</h3>
+    <form method="POST" action="{{ url_for('upload_chapter') }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="chapterTitle">Chapter Title</label>
+            <input type="text" class="form-control" id="chapterTitle" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="mangaSelect">Select Manga</label>
+            <select class="form-control" id="mangaSelect" name="manga_id" required>
+                {% for manga in mangas %}
+                    <option value="{{ manga.id }}">{{ manga.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="imageUpload">Upload Images</label>
+            <input type="file" class="form-control-file" id="imageUpload" name="images" multiple required>
+        </div>
+        <button type="submit" class="btn btn-success">Upload Chapter</button>
+    </form>
+
+    <!-- List Manga and Chapters -->
+    <h3 class="mt-5">Existing Manga</h3>
+    <ul class="list-group">
+        {% for manga in mangas %}
+            <li class="list-group-item">
+                <strong>{{ manga.title }}</strong><br>
+                <small>{{ manga.description }}</small><br>
+                ({{ manga.chapters|length }} Chapters)
+            </li>
+        {% endfor %}
+    </ul>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
