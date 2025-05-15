@@ -1,0 +1,2 @@
+# ondokmanga.io
+KOMIK ONDOK
